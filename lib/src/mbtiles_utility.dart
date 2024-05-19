@@ -6,8 +6,6 @@ import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
 import 'package:vector_map_tiles/vector_map_tiles.dart';
 
-import 'provider_exception.dart';
-
 /// MBTilesUtility is MBTiles access utility.
 class MBTilesUtility {
   /// A constructor of `MBTilesUtility` class.
@@ -52,9 +50,14 @@ class MBTilesUtility {
       throw ProviderException(
         message: 'Too many match tiles',
         retryable: Retryable.none,
+        statusCode: 400,
       );
     } else {
-      return Uint8List(0);
+      throw ProviderException(
+        message: 'Tile not found',
+        retryable: Retryable.none,
+        statusCode: 404,
+      );
     }
   }
 
